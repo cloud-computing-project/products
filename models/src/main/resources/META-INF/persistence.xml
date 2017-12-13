@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="products-jpa" transaction-type="RESOURCE_LOCAL">
-        <non-jta-data-source>jdbc/ProductsDS</non-jta-data-source>
+    <persistence-unit name="orders-jpa" transaction-type="RESOURCE_LOCAL">
+        <non-jta-data-source>jdbc/OrdersDS</non-jta-data-source>
 
         <class>si.fri.rso.samples.orders.Order</class>
 
