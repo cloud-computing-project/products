@@ -22,7 +22,7 @@ spec:
           - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
             value: jdbc:postgresql://postgres-products:5432/product
           - name: KUMULUZEE_SERVER_BASEURL
-            value: http://169.51.20.134:31426
+            value: http://169.51.20.134:32459
         ports:
         - containerPort: 8082
           name: server
