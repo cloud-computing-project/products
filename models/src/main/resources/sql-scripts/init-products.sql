@@ -1,3 +1,3 @@
-INSERT INTO products (id, product_name, description, price, order_id) VALUES (1, 'Coffee Mug', 'Coffee Mug with characters from Star Wars', '20', 1);
-INSERT INTO products (id, product_name, description, price, order_id) VALUES (2, 'Blue Jeans', 'Pepe Blue Jeans', '200', 1);
-INSERT INTO products (id, product_name, description, price, order_id) VALUES (3, 'Desk Lamp', 'Wide desk lamp with three levels of lightning', '50', 1);
+INSERT INTO orders (id, title, description, submitted, customer_id) VALUES (1, 'Keyboard', 'New mechanical keyboard.', TIMESTAMP '2017-03-01 11:23:38', 1);
+INSERT INTO orders (id, title, description, submitted, customer_id) VALUES (2, 'Mouse', 'Black mouse.', TIMESTAMP '2017-04-12 01:12:38', 1);
+INSERT INTO orders (id, title, description, submitted, customer_id) VALUES (3, 'Monitor', 'LCD monitor.', TIMESTAMP '2017-06-17 12:00:08', 3);
