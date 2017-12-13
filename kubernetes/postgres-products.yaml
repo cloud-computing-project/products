@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - image: centos/postgresql-94-centos7
-          name: postgres-orders
+          name: postgres-products
           env:
             - name: POSTGRESQL_USER
               value: dbuser
@@ -21,4 +21,4 @@ spec:
               value: product
           ports:
           - containerPort: 5432
-protocol: TCP
+            protocol: TCP

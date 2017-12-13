@@ -9,4 +9,4 @@ spec:
     protocol: TCP
     targetPort: 5432
   selector:
-app: postgres-products
+    app: postgres-products

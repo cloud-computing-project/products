@@ -9,10 +9,10 @@ kumuluzee:
       port: 8082
   datasources:
     - jndi-name: jdbc/ProductsDS
-      connection-url: jdbc:postgresql://192.168.99.100:5433/product
+      connection-url: jdbc:postgresql://192.168.99.100:5434/product
       username: dbuser
       password: postgres
-max-pool-size: 20
+      max-pool-size: 20
   discovery:
     etcd:
-    hosts: http://192.168.99.100:2379
+      hosts: http://192.168.99.100:2379

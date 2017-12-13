@@ -9,4 +9,4 @@ spec:
     protocol: TCP
     targetPort: 8082
   selector:
-app: product
+    app: product
