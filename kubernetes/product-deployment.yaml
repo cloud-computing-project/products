@@ -10,7 +10,7 @@ spec:
         app: product
     spec:
       containers:
-      - image: bozen/products:0.01
+      - image: bozen/products:0.03
         name: products
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
