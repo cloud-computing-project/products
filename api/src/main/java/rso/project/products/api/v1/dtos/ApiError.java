@@ -29,4 +29,6 @@ public class ApiError {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }
+

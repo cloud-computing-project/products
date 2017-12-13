@@ -3,7 +3,7 @@
     <persistence-unit name="products-jpa" transaction-type="RESOURCE_LOCAL">
         <non-jta-data-source>jdbc/ProductsDS</non-jta-data-source>
 
-        <class>rso.project.products.models.Product</class>
+        <class>rso.project.products.Product</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

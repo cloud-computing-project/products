@@ -1,5 +1,6 @@
 package rso.project.products.api.v1.mappers;
 
+
 import rso.project.products.api.v1.dtos.ApiError;
 
 import javax.enterprise.context.ApplicationScoped;

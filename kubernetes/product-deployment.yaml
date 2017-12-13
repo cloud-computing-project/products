@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - image: bozen/products:0.01
-        name: customer
+        name: products
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
             value: bluemix

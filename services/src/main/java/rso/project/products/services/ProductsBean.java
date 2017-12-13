@@ -1,17 +1,15 @@
 package rso.project.products.services;
 
-import com.kumuluz.ee.logs.LogManager;
-import com.kumuluz.ee.logs.Logger;
-import rso.project.products.models.Product;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
+import rso.project.products.Product;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @ApplicationScoped
@@ -20,14 +18,13 @@ public class ProductsBean {
     @Inject
     private EntityManager em;
 
-    @Inject
-    private ProductsBean productsBean;
+    public List<Product> getProducts(UriInfo uriInfo) {
 
-    private Client httpClient;
+        QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery())
+                .defaultOffset(0)
+                .build();
 
-    @PostConstruct
-    private void init() {
-        httpClient = ClientBuilder.newClient();
+        return JPAUtils.queryEntities(em, Product.class, queryParameters);
     }
 
     public List<Product> getProducts() {

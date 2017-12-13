@@ -1,10 +1,9 @@
 package rso.project.products.api.v1.resources;
 
-import com.kumuluz.ee.logs.cdi.Log;
-import rso.project.products.models.Product;
+import rso.project.products.Product;
 import rso.project.products.services.ProductsBean;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -13,22 +12,22 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
-@RequestScoped
+@ApplicationScoped
 @Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductsResource {
 
+    @Context
+    private UriInfo uriInfo;
+
     @Inject
     private ProductsBean productsBean;
-
-    @Context
-    protected UriInfo uriInfo;
 
     @GET
     public Response getProducts() {
 
-        List<Product> products = productsBean.getProducts();
+        List<Product> products = productsBean.getProducts(uriInfo);
 
         return Response.ok(products).build();
     }
