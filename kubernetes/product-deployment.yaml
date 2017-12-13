@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: product-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+      - image: bozen/products:0.01
+        name: products
+        env:
+          - name: KUMULUZEE_DISCOVERY_CLUSTER
+            value: bluemix
+          - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: KUMULUZEE_CONFIG_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+            value: jdbc:postgresql://postgres-products:5432/product
+          - name: KUMULUZEE_SERVER_BASEURL
+            value: http://169.51.13.134:30477
+        ports:
+        - containerPort: 8082
+          name: server
+protocol: TCP

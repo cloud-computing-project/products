@@ -14,7 +14,7 @@ cache:
   - $HOME/.m2
 
 env:
-  - DOCKER_IMAGE=bozen/products:0.02
+  - DOCKER_IMAGE=bozen/products:0.01
 
 script:
   - mvn clean package -U
@@ -22,4 +22,4 @@ script:
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push "$DOCKER_IMAGE"
+- docker push "$DOCKER_IMAGE"

@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>si.fri.rso.samples</groupId>
-    <artifactId>orders</artifactId>
+    <groupId>rso.projects</groupId>
+    <artifactId>products</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -40,7 +40,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-    </repositories>
+        </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -75,21 +75,20 @@
             </dependency>
 
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>orders-api</artifactId>
+                <groupId>rso.projects</groupId>
+                <artifactId>products-api</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>orders-models</artifactId>
+                <groupId>rso.projects</groupId>
+                <artifactId>products-models</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>si.fri.rso.samples</groupId>
-                <artifactId>orders-services</artifactId>
+                <groupId>rso.projects</groupId>
+                <artifactId>products-services</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>
