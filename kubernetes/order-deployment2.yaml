@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: product-deployment
+  name: order-deployment
 spec:
   replicas: 1
   template:
@@ -10,7 +10,7 @@ spec:
         app: order
     spec:
       containers:
-      - image: bozen/products:0.01
+      - image: ejmric/orders:0.01
         name: orders
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
@@ -20,10 +20,10 @@ spec:
           - name: KUMULUZEE_CONFIG_ETCD_HOSTS
             value: http://etcd:2379
           - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-            value: jdbc:postgresql://postgres-products:5432/order
+            value: jdbc:postgresql://postgres-orders:5432/order
           - name: KUMULUZEE_SERVER_BASEURL
             value: http://169.51.20.134:32584
         ports:
-        - containerPort: 8082
+        - containerPort: 8081
           name: server
           protocol: TCP

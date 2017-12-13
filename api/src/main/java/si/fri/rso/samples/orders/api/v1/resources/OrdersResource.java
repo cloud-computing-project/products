@@ -13,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @ApplicationScoped
-@Path("/products")
+@Path("/orders")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class OrdersResource {

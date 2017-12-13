@@ -1,17 +1,17 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: postgres-products-deployment
+  name: postgres-orders-deployment2
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: postgres-products
+        app: postgres-orders2
     spec:
       containers:
         - image: centos/postgresql-94-centos7
-          name: postgres-products
+          name: postgres-orders2
           env:
             - name: POSTGRESQL_USER
               value: dbuser
