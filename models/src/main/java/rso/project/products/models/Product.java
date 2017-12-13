@@ -3,8 +3,6 @@ package rso.project.products.models;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Entity(name = "product")
 @NamedQueries(value =
