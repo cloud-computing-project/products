@@ -4,6 +4,7 @@ import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "products")
 @NamedQueries(value =
@@ -26,6 +27,9 @@ public class Product {
     private String categoryId;
 
     private String price;
+
+    @Transient
+    private List<Sale> sales;
 
     public String getId() {
         return id;
@@ -65,5 +69,13 @@ public class Product {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
     }
 }
