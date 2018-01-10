@@ -4,18 +4,49 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import rso.projects.products.Product;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
+import rso.projects.products.Sale;
+import rso.projects.products.services.config.RestProperties;
 
 @ApplicationScoped
 public class ProductsBean {
 
     @Inject
     private EntityManager em;
+
+    @Inject
+    private RestProperties restProperties;
+
+    @Inject
+    private ProductsBean productsBean;
+
+    private Client httpClient;
+
+    @Inject
+    @DiscoverService("sales")
+    private Optional<String> baseUrl;
+
+    @PostConstruct
+    private void init() {
+        httpClient = ClientBuilder.newClient();
+        //baseUrl = "http://192.168.99.100:8081"; // only for demonstration
+    }
 
     public List<Product> getProducts(UriInfo uriInfo) {
 
@@ -33,6 +64,11 @@ public class ProductsBean {
 
         if (product == null) {
             throw new NotFoundException();
+        }
+
+        if (restProperties.isOrderServiceEnabled()) {
+            List<Sale> sales = productsBean.getSales(productId);
+            product.setSales(sales);
         }
 
         return product;
@@ -86,6 +122,25 @@ public class ProductsBean {
             return false;
 
         return true;
+    }
+
+    public List<Sale> getSales(String productId) {
+
+        if (baseUrl.isPresent()) {
+
+            try {
+                return httpClient
+                        .target(baseUrl.get() + "/v1/sales?where=productId:EQ:" + productId)
+                        .request().get(new GenericType<List<Sale>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                System.out.println("error "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+
     }
 
     private void beginTx() {
