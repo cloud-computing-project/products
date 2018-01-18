@@ -149,7 +149,7 @@ public class ProductsBean {
 
     }
 
-    public List<Sale> getOrdersFallback(String productId) {
+    public List<Sale> getSalesFallback(String productId) {
 
         List<Sale> sales = new ArrayList<>();
 
