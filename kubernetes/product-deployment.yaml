@@ -10,7 +10,7 @@ spec:
         app: product
     spec:
       containers:
-      - image: bozen/products:0.04
+      - image: bozen/products:0.08
         name: products
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
@@ -24,6 +24,6 @@ spec:
           - name: KUMULUZEE_SERVER_BASEURL
             value: http://169.51.20.134:32275
         ports:
-        - containerPort: 8082
+        - containerPort: 8090
           name: server
           protocol: TCP

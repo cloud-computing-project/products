@@ -31,6 +31,9 @@ public class Product {
     @Transient
     private List<Sale> sales;
 
+    @Transient
+    private List<Shipping> shippings;
+
     public String getId() {
         return id;
     }
@@ -77,5 +80,13 @@ public class Product {
 
     public void setSales(List<Sale> sales) {
         this.sales = sales;
+    }
+
+    public List<Shipping> getShippings() {
+        return shippings;
+    }
+
+    public void setShippings(List<Shipping> shippings) {
+        this.shippings = shippings;
     }
 }

@@ -25,6 +25,7 @@ import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import rso.projects.products.Sale;
+import rso.projects.products.Shipping;
 import rso.projects.products.services.config.RestProperties;
 
 @ApplicationScoped
@@ -44,6 +45,10 @@ public class ProductsBean {
     @Inject
     @DiscoverService("sales")
     private Optional<String> baseUrl;
+
+    @Inject
+    @DiscoverService("shippings")
+    private Optional<String> baseUrlShip;
 
     @PostConstruct
     private void init() {
@@ -71,7 +76,9 @@ public class ProductsBean {
 
         if (restProperties.isOrderServiceEnabled()) {
             List<Sale> sales = productsBean.getSales(productId);
+            List<Shipping> shippings = productsBean.getShippings(productId);
             product.setSales(sales);
+            product.setShippings(shippings);
         }
 
         return product;
@@ -138,6 +145,25 @@ public class ProductsBean {
                 return httpClient
                         .target(baseUrl.get() + "/v1/sales?where=productId:EQ:" + productId)
                         .request().get(new GenericType<List<Sale>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                System.out.println("error "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    public List<Shipping> getShippings(String productId) {
+
+        if (baseUrlShip.isPresent()) {
+
+            try {
+                return httpClient
+                        .target(baseUrlShip.get() + "/v1/shippings?where=productId:EQ:" + productId)
+                        .request().get(new GenericType<List<Shipping>>() {
                         });
             } catch (WebApplicationException | ProcessingException e) {
                 System.out.println("error "+e);
