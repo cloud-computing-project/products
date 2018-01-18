@@ -3,14 +3,13 @@ package rso.projects.products;
 import org.eclipse.persistence.annotations.UuidGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "products")
 @NamedQueries(value =
-        {
-                @NamedQuery(name = "Product.getAll", query = "SELECT p FROM products p")
-        })
+{
+    @NamedQuery(name = "Product.getAll", query = "SELECT p FROM products p")
+})
 @UuidGenerator(name = "idGenerator")
 public class Product {
 
@@ -23,6 +22,17 @@ public class Product {
     @Column(name = "manufacturer_id")
     private String manufacturerId;
 
+    public String getItemSpecificId() {
+        return itemSpecificId;
+    }
+
+    public void setItemSpecificId(String itemSpecificId) {
+        this.itemSpecificId = itemSpecificId;
+    }
+
+    @Column(name = "itemspecific_id")
+    private String itemSpecificId;
+
     @Column(name = "category_id")
     private String categoryId;
 
@@ -33,6 +43,9 @@ public class Product {
 
     @Transient
     private List<Shipping> shippings;
+
+    @Column(name = "returnpolicy_id")
+    private String returnPolicyId;
 
     public String getId() {
         return id;
@@ -80,6 +93,14 @@ public class Product {
 
     public void setSales(List<Sale> sales) {
         this.sales = sales;
+    }
+
+    public String getReturnPolicyId() {
+        return returnPolicyId;
+    }
+
+    public void setReturnPolicyId(String returnPolicyId) {
+        this.returnPolicyId = returnPolicyId;
     }
 
     public List<Shipping> getShippings() {
