@@ -19,6 +19,9 @@ import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import rso.projects.products.Sale;
@@ -124,6 +127,9 @@ public class ProductsBean {
         return true;
     }
 
+    @CircuitBreaker(requestVolumeThreshold = 2)
+    @Fallback(fallbackMethod = "getSalesFallback")
+    @Timeout
     public List<Sale> getSales(String productId) {
 
         if (baseUrl.isPresent()) {
@@ -140,6 +146,21 @@ public class ProductsBean {
         }
 
         return new ArrayList<>();
+
+    }
+
+    public List<Sale> getOrdersFallback(String productId) {
+
+        List<Sale> sales = new ArrayList<>();
+
+        Sale sale = new Sale();
+
+        sale.setOldPrice("N/A");
+        sale.setNewPrice("N/A");
+
+        sales.add(sale);
+
+        return sales;
 
     }
 
