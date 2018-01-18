@@ -22,20 +22,6 @@ public class Product {
     @Column(name = "manufacturer_id")
     private String manufacturerId;
 
-    public String getItemSpecificId() {
-        return itemSpecificId;
-    }
-
-    public void setItemSpecificId(String itemSpecificId) {
-        this.itemSpecificId = itemSpecificId;
-    }
-
-    @Column(name = "itemspecific_id")
-    private String itemSpecificId;
-
-    @Column(name = "category_id")
-    private String categoryId;
-
     private String price;
 
     @Transient
@@ -49,6 +35,12 @@ public class Product {
 
     @Column(name = "returnpolicy_id")
     private String returnPolicyId;
+
+    @Column(name = "itemspecific_id")
+    private String itemSpecificId;
+
+    @Column(name = "category_id")
+    private String categoryId;
 
     public String getId() {
         return id;
@@ -120,5 +112,13 @@ public class Product {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getItemSpecificId() {
+        return itemSpecificId;
+    }
+
+    public void setItemSpecificId(String itemSpecificId) {
+        this.itemSpecificId = itemSpecificId;
     }
 }
