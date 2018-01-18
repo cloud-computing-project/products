@@ -44,6 +44,9 @@ public class Product {
     @Transient
     private List<Shipping> shippings;
 
+    @Transient
+    private List<Order> orders;
+
     @Column(name = "returnpolicy_id")
     private String returnPolicyId;
 
@@ -109,5 +112,13 @@ public class Product {
 
     public void setShippings(List<Shipping> shippings) {
         this.shippings = shippings;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

@@ -2,6 +2,7 @@ package rso.projects.products.services;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import rso.projects.products.Order;
 import rso.projects.products.Product;
 
 import javax.annotation.PostConstruct;
@@ -50,6 +51,10 @@ public class ProductsBean {
     @DiscoverService("shippings")
     private Optional<String> baseUrlShip;
 
+    @Inject
+    @DiscoverService("orders")
+    private Optional<String> baseUrlOrder;
+
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
@@ -77,8 +82,10 @@ public class ProductsBean {
         if (restProperties.isOrderServiceEnabled()) {
             List<Sale> sales = productsBean.getSales(productId);
             List<Shipping> shippings = productsBean.getShippings(productId);
+            List<Order> orders = productsBean.getOrders(productId);
             product.setSales(sales);
             product.setShippings(shippings);
+            product.setOrders(orders);
         }
 
         return product;
@@ -164,6 +171,25 @@ public class ProductsBean {
                 return httpClient
                         .target(baseUrlShip.get() + "/v1/shippings?where=productId:EQ:" + productId)
                         .request().get(new GenericType<List<Shipping>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                System.out.println("error "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    public List<Order> getOrders(String productId) {
+
+        if (baseUrlOrder.isPresent()) {
+
+            try {
+                return httpClient
+                        .target(baseUrlOrder.get() + "/v1/orders?where=productId:EQ:" + productId)
+                        .request().get(new GenericType<List<Order>>() {
                         });
             } catch (WebApplicationException | ProcessingException e) {
                 System.out.println("error "+e);
