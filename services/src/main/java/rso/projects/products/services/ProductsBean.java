@@ -52,7 +52,7 @@ public class ProductsBean {
     private Optional<String> baseUrlShip;
 
     @Inject
-    @DiscoverService("orders")
+    @DiscoverService("rso-orders")
     private Optional<String> baseUrlOrder;
 
     @PostConstruct
