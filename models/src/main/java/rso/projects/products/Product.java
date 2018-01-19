@@ -33,6 +33,9 @@ public class Product {
     @Transient
     private List<Order> orders;
 
+    @Transient
+    private List<Rating> ratings;
+
     @Column(name = "returnpolicy_id")
     private String returnPolicyId;
 
@@ -120,5 +123,13 @@ public class Product {
 
     public void setItemSpecificId(String itemSpecificId) {
         this.itemSpecificId = itemSpecificId;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 }

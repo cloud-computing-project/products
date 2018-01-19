@@ -2,8 +2,7 @@ package rso.projects.products.services;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import rso.projects.products.Order;
-import rso.projects.products.Product;
+import rso.projects.products.*;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -25,8 +24,6 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
-import rso.projects.products.Sale;
-import rso.projects.products.Shipping;
 import rso.projects.products.services.config.RestProperties;
 
 @ApplicationScoped
@@ -54,6 +51,10 @@ public class ProductsBean {
     @Inject
     @DiscoverService("rso-orders")
     private Optional<String> baseUrlOrder;
+
+    @Inject
+    @DiscoverService("ratings")
+    private Optional<String> baseUrlRating;
 
     @PostConstruct
     private void init() {
@@ -83,9 +84,11 @@ public class ProductsBean {
             List<Sale> sales = productsBean.getSales(productId);
             List<Shipping> shippings = productsBean.getShippings(productId);
             List<Order> orders = productsBean.getOrders(productId);
+            List<Rating> ratings = productsBean.getRatings(productId);
             product.setSales(sales);
             product.setShippings(shippings);
             product.setOrders(orders);
+            product.setRatings(ratings);
         }
 
         return product;
@@ -190,6 +193,25 @@ public class ProductsBean {
                 return httpClient
                         .target(baseUrlOrder.get() + "/v1/orders?where=productId:EQ:" + productId)
                         .request().get(new GenericType<List<Order>>() {
+                        });
+            } catch (WebApplicationException | ProcessingException e) {
+                System.out.println("error "+e);
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return new ArrayList<>();
+
+    }
+
+    public List<Rating> getRatings(String productId) {
+
+        if (baseUrlRating.isPresent()) {
+
+            try {
+                return httpClient
+                        .target(baseUrlRating.get() + "/v1/ratings?where=productId:EQ:" + productId)
+                        .request().get(new GenericType<List<Rating>>() {
                         });
             } catch (WebApplicationException | ProcessingException e) {
                 System.out.println("error "+e);
